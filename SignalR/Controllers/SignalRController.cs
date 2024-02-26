@@ -16,9 +16,9 @@ namespace SignalR.Controllers
         }
 
         [HttpPost("send")]
-        public async Task<IActionResult> SendMessage(string user, string message)
+        public async Task<IActionResult> SendMessageToClient(string connectionId, string message = "123")
         {
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
+            await _hubContext.Clients.Client(connectionId).SendAsync("ReceiveMessage", message);
             return Ok();
         }
     }
